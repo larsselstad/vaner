@@ -13,23 +13,20 @@ import '@aws-amplify/ui-react/styles.css';
 import { generateClient } from 'aws-amplify/data';
 import outputs from '../amplify_outputs.json';
 import { type Schema } from '../amplify/data/resource';
+import Week from './week/Week';
+import { getWeekNumber } from './utils/date';
 
 // Extract the UserProfile type from Schema
-// NOT WORKING
-// type UserProfile = Schema['UserProfile'];
-type UserProfile = {
-    email: string | null;
-    profileOwner: string | null;
-    readonly id: string;
-    readonly createdAt: string;
-    readonly updatedAt: string;
-};
+type UserProfile = Schema['UserProfile']['type'];
 
 Amplify.configure(outputs);
 
 const client = generateClient<Schema>({
     authMode: 'userPool'
 });
+
+const now = new Date();
+const weekNumber = getWeekNumber(now);
 
 export default function App() {
     const [userprofiles, setUserProfiles] = useState<UserProfile[]>([]);
@@ -82,6 +79,7 @@ export default function App() {
                     </Flex>
                 ))}
             </Grid>
+            <Week date={now} weekNumber={weekNumber} />
             <Button onClick={signOut}>Sign Out</Button>
         </Flex>
     );

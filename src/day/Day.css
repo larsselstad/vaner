@@ -1,0 +1,10 @@
+.day {
+    padding: 1em;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin: 1em 0;
+}
+
+.today {
+    background-color: #f0f0f0;
+}
