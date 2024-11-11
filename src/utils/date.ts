@@ -25,3 +25,17 @@ export const getWeekNumber = (date: Date): number => {
     const yearStart = new Date(d.getFullYear(), 0, 1);
     return Math.ceil((((d as any) - (yearStart as any)) / 86400000 + 1) / 7);
 };
+
+// get a new date 7 days back from the given date
+export const getPreviousWeek = (date: Date): Date => {
+    const d = new Date(date);
+    d.setDate(d.getDate() - 7);
+    return d;
+};
+
+// get a new date 7 days forward from the given date
+export const getNextWeek = (date: Date): Date => {
+    const d = new Date(date);
+    d.setDate(d.getDate() + 7);
+    return d;
+};

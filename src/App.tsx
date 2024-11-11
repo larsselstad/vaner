@@ -14,7 +14,8 @@ import { generateClient } from 'aws-amplify/data';
 import outputs from '../amplify_outputs.json';
 import { type Schema } from '../amplify/data/resource';
 import Week from './week/Week';
-import { getWeekNumber } from './utils/date';
+import { getNextWeek, getPreviousWeek, getWeekNumber } from './utils/date';
+import NavigationButtons from './components/NavigationButtons';
 
 // Extract the UserProfile type from Schema
 type UserProfile = Schema['UserProfile']['type'];
@@ -26,15 +27,29 @@ const client = generateClient<Schema>({
 });
 
 const now = new Date();
-const weekNumber = getWeekNumber(now);
+const currentWeekNumber = getWeekNumber(now);
 
 export default function App() {
     const [userprofiles, setUserProfiles] = useState<UserProfile[]>([]);
     const { signOut } = useAuthenticator((context) => [context.user]);
+    const [weekNumber, setWeekNumber] = useState<number>(currentWeekNumber);
+    const [date, setDate] = useState<Date>(now);
 
     useEffect(() => {
         fetchUserProfile();
     }, []);
+
+    const goBack = () => {
+        const newDate = getPreviousWeek(date);
+        setDate(newDate);
+        setWeekNumber(getWeekNumber(newDate));
+    };
+
+    const goForward = () => {
+        const newDate = getNextWeek(date);
+        setDate(newDate);
+        setWeekNumber(getWeekNumber(newDate));
+    };
 
     async function fetchUserProfile() {
         const result = await client.models.UserProfile.list();
@@ -51,6 +66,18 @@ export default function App() {
             margin="0 auto"
         >
             <Heading level={1}>My Profile</Heading>
+
+            <Divider />
+
+            <Flex>
+                <NavigationButtons goBack={goBack} goForward={goForward} />
+            </Flex>
+
+            <Week date={date} weekNumber={weekNumber} />
+
+            <Flex>
+                <NavigationButtons goBack={goBack} goForward={goForward} />
+            </Flex>
 
             <Divider />
 
@@ -79,7 +106,9 @@ export default function App() {
                     </Flex>
                 ))}
             </Grid>
-            <Week date={now} weekNumber={weekNumber} />
+
+            <Divider />
+
             <Button onClick={signOut}>Sign Out</Button>
         </Flex>
     );
