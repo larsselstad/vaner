@@ -1,0 +1,2 @@
+# Ignore files in the amplify/auth/post-confirmation/graphql folder
+amplify/auth/post-confirmation/graphql/**
