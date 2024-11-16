@@ -1,6 +1,12 @@
+const pad = (n: number) => n.toString().padStart(2, '0');
+
 // format date to string dd.mm.yyyy
 export const formatDate = (date: Date) => {
-    return date.toLocaleDateString('no-NO');
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1);
+    const year = date.getFullYear();
+
+    return [day, month, year].join('.');
 };
 
 // get today's date and return this week in an array from monday to sunday
@@ -23,7 +29,7 @@ export const getWeekNumber = (date: Date): number => {
     d.setHours(0, 0, 0, 0);
     d.setDate(d.getDate() + 4 - (d.getDay() || 7));
     const yearStart = new Date(d.getFullYear(), 0, 1);
-    return Math.ceil((((d as any) - (yearStart as any)) / 86400000 + 1) / 7);
+    return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
 };
 
 // get a new date 7 days back from the given date
