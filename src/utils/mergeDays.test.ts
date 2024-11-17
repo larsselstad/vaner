@@ -85,8 +85,9 @@ const createDay = (
     date,
     noChocolate,
     stretching,
-    week: {} as any, // Replace with appropriate value
-    id: 'some-id', // Replace with appropriate value
-    createdAt: new Date().toISOString(), // Replace with appropriate value
-    updatedAt: new Date().toISOString() // Replace with appropriate value
+    // eslint-disable-next-line
+    week: {} as any,
+    id: 'some-id',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
 });

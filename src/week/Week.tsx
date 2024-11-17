@@ -28,41 +28,42 @@ const Week: React.FC<WeekProps> = ({ date, weekNumber, client }) => {
 
     useEffect(() => {
         const thisWeekDays = getAllDatesInWeek(date);
-        fetchWeek(thisWeekDays);
-    }, []);
 
-    const fetchWeek = async (thisWeekDays: Date[]) => {
-        setLoading(true);
+        const fetchWeek = async (thisWeekDays: Date[]) => {
+            setLoading(true);
 
-        const weekId = thisWeekDays[0].getTime().toString();
-        // get week from database
-        const { data: week } = await client.models.Week.get({
-            id: weekId
-        });
-
-        // if week exists, set days
-        if (week) {
-            const { data: dbDays } = await week.days();
-            const mergedDays = mergeDays(thisWeekDays, dbDays, week.id);
-            setDays(mergedDays);
-        } else {
-            // if week does not exist, create week and set days
-            await client.models.Week.create({
-                id: weekId,
-                weekNumber,
-                year: date.getFullYear()
+            const weekId = thisWeekDays[0].getTime().toString();
+            // get week from database
+            const { data: week } = await client.models.Week.get({
+                id: weekId
             });
-            setDays(
-                thisWeekDays.map((date) => ({
-                    date,
-                    noChocolate: false,
-                    stretching: false,
-                    weekId
-                }))
-            );
-        }
-        setLoading(false);
-    };
+
+            // if week exists, set days
+            if (week) {
+                const { data: dbDays } = await week.days();
+                const mergedDays = mergeDays(thisWeekDays, dbDays, week.id);
+                setDays(mergedDays);
+            } else {
+                // if week does not exist, create week and set days
+                await client.models.Week.create({
+                    id: weekId,
+                    weekNumber,
+                    year: date.getFullYear()
+                });
+                setDays(
+                    thisWeekDays.map((date) => ({
+                        date,
+                        noChocolate: false,
+                        stretching: false,
+                        weekId
+                    }))
+                );
+            }
+            setLoading(false);
+        };
+
+        fetchWeek(thisWeekDays);
+    }, [date, weekNumber, client]);
 
     const saveDay = async (
         day: DayObject,
