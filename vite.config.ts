@@ -11,25 +11,5 @@ export default defineConfig({
             // change to true to automatically open the visualization in the default browser
             open: false
         })
-    ],
-    build: {
-        rollupOptions: {
-            output: {
-                manualChunks(id) {
-                    if (id.includes('node_modules')) {
-                        if (id.includes('react')) {
-                            return 'react';
-                        }
-                        if (id.includes('aws-amplify')) {
-                            return 'aws';
-                        }
-                        if (id.includes('lodash')) {
-                            return 'lodash';
-                        }
-                        return 'vendor';
-                    }
-                }
-            }
-        }
-    }
+    ]
 });
