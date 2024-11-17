@@ -10,7 +10,7 @@ import {
 import { useAuthenticator } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
-import { generateClient } from 'aws-amplify/data';
+import { generateClient, Client } from 'aws-amplify/data';
 import outputs from '../amplify_outputs.json';
 import { type Schema } from '../amplify/data/resource';
 import Week from './week/Week';
@@ -22,18 +22,19 @@ type UserProfile = Schema['UserProfile']['type'];
 
 Amplify.configure(outputs);
 
-const client = generateClient<Schema>({
+const client: Client<Schema> = generateClient<Schema>({
     authMode: 'userPool'
 });
 
-const now = new Date();
-const currentWeekNumber = getWeekNumber(now);
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const currentWeekNumber = getWeekNumber(today);
 
 export default function App() {
     const [userprofiles, setUserProfiles] = useState<UserProfile[]>([]);
     const { signOut } = useAuthenticator((context) => [context.user]);
     const [weekNumber, setWeekNumber] = useState<number>(currentWeekNumber);
-    const [date, setDate] = useState<Date>(now);
+    const [date, setDate] = useState<Date>(today);
 
     useEffect(() => {
         fetchUserProfile();
@@ -73,7 +74,7 @@ export default function App() {
                 <NavigationButtons goBack={goBack} goForward={goForward} />
             </Flex>
 
-            <Week date={date} weekNumber={weekNumber} />
+            <Week date={date} weekNumber={weekNumber} client={client} />
 
             <Flex>
                 <NavigationButtons goBack={goBack} goForward={goForward} />

@@ -9,6 +9,15 @@ export const formatDate = (date: Date) => {
     return [day, month, year].join('.');
 };
 
+// format date to string YYYY-MM-DD
+export const formatDateISO = (date: Date) => {
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1);
+    const year = date.getFullYear();
+
+    return [year, month, day].join('-');
+};
+
 // get today's date and return this week in an array from monday to sunday
 export const getAllDatesInWeek = (date: Date): Date[] => {
     const day = date.getDay();

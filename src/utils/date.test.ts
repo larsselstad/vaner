@@ -1,5 +1,6 @@
 import {
     formatDate,
+    formatDateISO,
     getAllDatesInWeek,
     getWeekNumber,
     getPreviousWeek,
@@ -15,6 +16,18 @@ describe('formatDate', () => {
     test('formatDate for 2024-12-31', () => {
         const date = new Date('2024-12-31');
         expect(formatDate(date)).toBe('31.12.2024');
+    });
+});
+
+describe('formatDateISO', () => {
+    test('formatDateISO for 2024-01-01', () => {
+        const date = new Date('2024-01-01');
+        expect(formatDateISO(date)).toBe('2024-01-01');
+    });
+
+    test('formatDateISO for 2024-12-31', () => {
+        const date = new Date('2024-12-31');
+        expect(formatDateISO(date)).toBe('2024-12-31');
     });
 });
 
