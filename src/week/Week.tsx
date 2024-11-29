@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Client } from 'aws-amplify/data';
 import { type Schema } from '../../amplify/data/resource';
 import Day from '../day/Day';
-import { Heading, View } from '@aws-amplify/ui-react';
-import { getAllDatesInWeek } from '../utils/date';
-import { mergeDays } from '../utils/mergeDays';
 import { formatDateISO } from '../utils/date';
-
 import './Week.css';
+import DayStatus from '../day/DayStatus';
+import fetchWeek from './saveWeek';
 
 export interface DayObject {
     date: Date;
     noChocolate: boolean;
     stretching: boolean;
     weekId: string;
+    id?: string;
 }
 
 interface WeekProps {
@@ -27,42 +26,12 @@ const Week: React.FC<WeekProps> = ({ date, weekNumber, client }) => {
     const [days, setDays] = useState<DayObject[]>([]);
 
     useEffect(() => {
-        const thisWeekDays = getAllDatesInWeek(date);
+        setLoading(true);
 
-        const fetchWeek = async (thisWeekDays: Date[]) => {
-            setLoading(true);
-
-            const weekId = thisWeekDays[0].getTime().toString();
-            // get week from database
-            const { data: week } = await client.models.Week.get({
-                id: weekId
-            });
-
-            // if week exists, set days
-            if (week) {
-                const { data: dbDays } = await week.days();
-                const mergedDays = mergeDays(thisWeekDays, dbDays, week.id);
-                setDays(mergedDays);
-            } else {
-                // if week does not exist, create week and set days
-                await client.models.Week.create({
-                    id: weekId,
-                    weekNumber,
-                    year: date.getFullYear()
-                });
-                setDays(
-                    thisWeekDays.map((date) => ({
-                        date,
-                        noChocolate: false,
-                        stretching: false,
-                        weekId
-                    }))
-                );
-            }
+        fetchWeek(date, weekNumber, client).then((days) => {
+            setDays(days);
             setLoading(false);
-        };
-
-        fetchWeek(thisWeekDays);
+        });
     }, [date, weekNumber, client]);
 
     const saveDay = async (
@@ -70,31 +39,48 @@ const Week: React.FC<WeekProps> = ({ date, weekNumber, client }) => {
         noChocolate: boolean,
         stretching: boolean
     ) => {
-        await client.models.Day.create({
-            weekId: day.weekId,
-            date: formatDateISO(day.date),
-            noChocolate,
-            stretching
-        });
+        if (day.id) {
+            await client.models.Day.update({
+                id: day.id,
+                noChocolate,
+                stretching
+            });
+        } else {
+            await client.models.Day.create({
+                weekId: day.weekId,
+                date: formatDateISO(day.date),
+                noChocolate,
+                stretching
+            });
+        }
+        setDays(await fetchWeek(date, weekNumber, client));
     };
 
     return (
-        <View className="week">
-            <Heading level={2}>Week {weekNumber}</Heading>
+        <div className="week">
             {loading ? (
-                <p>Loading...</p>
+                <p>Loading week {weekNumber}...</p>
             ) : (
-                days.map((day, index) => (
-                    <Day
-                        key={index}
-                        index={index}
-                        day={day}
-                        isToday={day.date.getTime() === date.getTime()}
-                        save={saveDay}
-                    />
-                ))
+                <>
+                    <ul className="days-list">
+                        {days.map((day, index) => (
+                            <Day
+                                key={index}
+                                index={index}
+                                day={day}
+                                isToday={day.date.getTime() === date.getTime()}
+                                save={saveDay}
+                            />
+                        ))}
+                    </ul>
+                    <ul>
+                        {days.map((day, index) => (
+                            <DayStatus day={day} key={index + '-daystatus'} />
+                        ))}
+                    </ul>
+                </>
             )}
-        </View>
+        </div>
     );
 };
 

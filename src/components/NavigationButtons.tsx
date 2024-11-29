@@ -1,5 +1,3 @@
-import { Button } from '@aws-amplify/ui-react';
-
 interface NavigationButtonsProps {
     goBack: () => void;
     goForward: () => void;
@@ -11,8 +9,8 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({
 }) => {
     return (
         <>
-            <Button onClick={goBack}>&lt; Back</Button>
-            <Button onClick={goForward}>Next &gt;</Button>
+            <button onClick={goBack}>&lt; Back</button>
+            <button onClick={goForward}>Next &gt;</button>
         </>
     );
 };

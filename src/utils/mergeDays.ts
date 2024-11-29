@@ -16,7 +16,8 @@ export const mergeDays = (
             date,
             noChocolate: dbDay?.noChocolate ? true : false,
             stretching: dbDay?.stretching ? true : false,
-            weekId
+            weekId,
+            id: dbDay?.id
         };
     });
 };

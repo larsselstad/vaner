@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Button,
-    Heading,
-    View,
-    Fieldset,
-    CheckboxField,
-    Text
-} from '@aws-amplify/ui-react';
 import { formatDate } from '../utils/date';
 import { DayObject } from '../week/Week';
+import EmojiCheckbox from '../components/EmojiCheckbox';
 
 import './Day.css';
+import SaveButton from '../components/SaveButton';
 
 const titles = [
     'Monday',
@@ -51,38 +45,34 @@ const Day: React.FC<DayProps> = ({ index, day, isToday, save }) => {
     const className = isToday ? 'day today' : 'day';
 
     return (
-        <View className={className}>
-            <Heading level={3}>{titles[index]}</Heading>
-            <Text>{formatDate(day.date)}</Text>
+        <li className={className}>
+            <h3>{titles[index]}</h3>
+            <p>{formatDate(day.date)}</p>
             <form onSubmit={onSubmit}>
-                <Fieldset
-                    legend="Have you done your goals today?"
-                    variation="plain"
-                    direction="column"
-                >
-                    <CheckboxField
-                        label="No chokolate"
+                <fieldset>
+                    <legend>Have you done your goals today?</legend>
+                    <EmojiCheckbox
                         name="no_chokolate"
-                        onChange={() => setNoChokolate(!noChokolate)}
+                        label="🍫"
                         checked={noChokolate}
+                        onChange={() => setNoChokolate(!noChokolate)}
                     />
-                    <CheckboxField
-                        label="Stretching"
+                    <EmojiCheckbox
                         name="stretching"
-                        onChange={() => setStretching(!stretching)}
+                        label="🧘‍♂️"
                         checked={stretching}
+                        onChange={() => setStretching(!stretching)}
                     />
-                </Fieldset>
-                <Button
-                    variation="primary"
-                    isLoading={saving}
-                    loadingText="Saving..."
-                    type="submit"
-                >
-                    Save
-                </Button>
+                </fieldset>
+                <SaveButton
+                    text="Save"
+                    saving={saving}
+                    savingText="Saving..."
+                    saved={day.id ? true : false}
+                    savedText="Saved"
+                />
             </form>
-        </View>
+        </li>
     );
 };
 
