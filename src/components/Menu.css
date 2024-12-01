@@ -1,7 +1,7 @@
 #menu {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 20px;
     display: grid;
     transition: grid-template-rows 0.2s;
     grid-template-rows: min-content 0fr;
@@ -13,19 +13,21 @@
 }
 
 #menu ul {
-    background-color: #282c34;
+    background-color: var(--color-header);
     overflow: hidden;
 }
 
 #menu ul li {
     display: block;
     padding: 10px 20px;
-    color: white;
+    color: #fff;
     text-align: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--color-light-grey);
 }
 
 #menu-button {
+    justify-self: end;
+    margin-top: 5px;
     text-transform: uppercase;
 }
 
@@ -35,7 +37,7 @@
 
 #menu-button,
 #menu-signout {
-    color: white;
+    color: #fff;
 }
 
 #menu-button:hover,

@@ -1,12 +1,50 @@
 .button-save {
-    background-color: lightblue;
-    border: 1px solid blue;
+    background-color: var(--color-blue);
+    border: 1px solid var(--color-dark-blue);
     border-radius: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
+    color: white;
+    padding: 0.75em 2em;
 }
 
-.button-save:hover {
-    background-color: blue;
-    color: white;
+.button-save:hover,
+.button-save:focus {
+    background-color: var(--color-dark-blue);
+    border-color: var(--color-darker-blue);
+}
+
+.button-save:active {
+    background-color: var(--color-darker-blue);
+    border-color: var(--color-darkest-blue);
+}
+
+.button-saving {
+    background-color: var(--color-grey);
+    border-color: var(--color-dark-grey);
+}
+
+.button-saving:hover,
+.button-saving:focus {
+    background-color: var(--color-dark-grey);
+    border-color: var(--color-darker-grey);
+}
+
+.button-saving:active {
+    background-color: var(--color-darker-grey);
+    border-color: var(--color-darkest-grey);
+}
+
+.button-saved {
+    background-color: var(--color-green);
+    border-color: var(--color-dark-green);
+}
+
+.button-saved:hover,
+.button-saved:focus {
+    background-color: var(--color-dark-green);
+    border-color: var(--color-darker-green);
+}
+
+.button-saved:active {
+    background-color: var(--color-darker-green);
+    border-color: var(--color-darkest-green);
 }

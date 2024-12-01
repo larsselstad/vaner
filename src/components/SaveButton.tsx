@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import './SaveButton.css';
 
 interface Props {
@@ -16,7 +18,13 @@ const SaveButton: React.FC<Props> = ({
     savedText
 }) => {
     return (
-        <button type="submit" className="button-save">
+        <button
+            type="submit"
+            className={classNames('button-save', {
+                'button-saving': saving,
+                'button-saved': !saving && saved
+            })}
+        >
             {saving ? savingText : saved ? savedText : text}
         </button>
     );

@@ -6,6 +6,20 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    --color-green: #64c466;
+    --color-dark-green: #57b259; /* Dark Green */
+    --color-darker-green: #4a9f4c; /* Darker Green */
+    --color-darkest-green: #3d8c3f; /* Darkest Green */
+    --color-light-grey: rgb(224, 224, 224);
+    --color-grey: rgb(128, 128, 128); /* Grey */
+    --color-dark-grey: rgb(96, 96, 96); /* Dark Grey */
+    --color-darker-grey: rgb(64, 64, 64); /* Darker Grey */
+    --color-darkest-grey: rgb(32, 32, 32); /* Darkest Grey */
+    --color-header: rgb(40, 44, 52);
+    --color-blue: rgb(0, 123, 255); /* Blue */
+    --color-dark-blue: rgb(0, 104, 232); /* Dark Blue */
+    --color-darker-blue: rgb(0, 86, 204); /* Darker Blue */
+    --color-darkest-blue: rgb(0, 70, 179); /* Darkest Blue */
 }
 
 * {

@@ -1,14 +1,16 @@
 .day {
     margin: 1em;
     padding: 1em;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-light-grey);
+    border-radius: 0.5em;
     background-color: #fff;
     width: 80vw;
     text-align: center;
 }
 
 .today {
-    background-color: #f0f0f0;
+    background-color: var(--color-light-grey);
+    border-color: var(--color-grey);
 }
 
 .day h3 {
@@ -17,7 +19,7 @@
 
 .day-date {
     margin-bottom: 1.5em;
-    color: #333;
+    color: var(--color-dark-grey);
 }
 
 .day-fieldset {

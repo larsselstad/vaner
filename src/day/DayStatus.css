@@ -1,5 +1,5 @@
 .daystatus {
-    background-color: grey;
+    background-color: var(--color-light-grey);
     border-radius: 50%;
     display: flex;
     height: 40px;
@@ -10,7 +10,8 @@
     position: relative;
 }
 
-.daystatus::before {
+.daystatus::before,
+.daystatus::after {
     content: '';
     display: block;
     position: absolute;
@@ -18,31 +19,22 @@
     left: 0;
     width: 20px;
     height: 100%;
-    background-color: darkgray;
+    background-color: var(--color-light-grey);
 }
 
 .daystatus::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
+    left: auto;
     right: 0;
-    width: 20px;
-    height: 100%;
-    background-color: darkgray;
 }
 
-.daystatus.daystatus-noChocolate-done::before {
-    background-color: green;
-}
-
+.daystatus.daystatus-noChocolate-done::before,
 .daystatus.daystatus-stretching-done::after {
-    background-color: green;
+    background-color: var(--color-green);
 }
 
 .daystatus-saved::before,
 .daystatus-saved::after {
-    background-color: #333;
+    background-color: var(--color-dark-grey);
 }
 
 .daystatus span {

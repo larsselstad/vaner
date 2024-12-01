@@ -43,10 +43,18 @@ export default function App() {
             <section>
                 <div id="week-nav">
                     <h2>Week {weekNumber}</h2>
-                    <button id="week-back-button" onClick={goBack}>
+                    <button
+                        className="week-button"
+                        id="week-back-button"
+                        onClick={goBack}
+                    >
                         &lt; Back
                     </button>
-                    <button id="week-next-button" onClick={goForward}>
+                    <button
+                        className="week-button"
+                        id="week-next-button"
+                        onClick={goForward}
+                    >
                         Next &gt;
                     </button>
                 </div>
