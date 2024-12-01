@@ -30,8 +30,8 @@ describe('mergeDays', () => {
     it('should merge days correctly when dbDays has matching dates', () => {
         const thisWeekDays = [new Date('2023-10-01'), new Date('2023-10-02')];
         const dbDays: Day[] = [
-            createDay('2023-10-01', true, true),
-            createDay('2023-10-02', false, true)
+            createDay('2023-10-01', true, true, '1'),
+            createDay('2023-10-02', false, true, '2')
         ];
         const weekId = '12345';
 
@@ -42,20 +42,22 @@ describe('mergeDays', () => {
                 date: thisWeekDays[0],
                 noChocolate: true,
                 stretching: true,
-                weekId
+                weekId,
+                id: '1'
             },
             {
                 date: thisWeekDays[1],
                 noChocolate: false,
                 stretching: true,
-                weekId
+                weekId,
+                id: '2'
             }
         ]);
     });
 
     it('should merge days correctly when dbDays has non-matching dates', () => {
         const thisWeekDays = [new Date('2023-10-01'), new Date('2023-10-02')];
-        const dbDays: Day[] = [createDay('2023-10-03', true, true)];
+        const dbDays: Day[] = [createDay('2023-10-03', true, true, '1')];
         const weekId = '12345';
 
         const result = mergeDays(thisWeekDays, dbDays, weekId);
@@ -80,14 +82,15 @@ describe('mergeDays', () => {
 const createDay = (
     date: string,
     noChocolate: boolean,
-    stretching: boolean
+    stretching: boolean,
+    id: string
 ): Day => ({
     date,
     noChocolate,
     stretching,
     // eslint-disable-next-line
     week: {} as any,
-    id: 'some-id',
+    id,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
 });
