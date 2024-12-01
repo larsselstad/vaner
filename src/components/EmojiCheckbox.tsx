@@ -1,3 +1,6 @@
+import './EmojiCheckbox.css';
+import classNames from 'classnames';
+
 interface Props {
     name: string;
     label: string;
@@ -7,9 +10,14 @@ interface Props {
 
 const EmojiCheckbox: React.FC<Props> = ({ name, label, checked, onChange }) => {
     return (
-        <label>
-            <span>{label}</span>
+        <label
+            className={classNames('checkbox-label', {
+                'checkbox-label-checked': checked
+            })}
+        >
+            <span className="checkbox-emoji">{label}</span>
             <input
+                className="checkbox-input"
                 name={name}
                 type="checkbox"
                 checked={checked}

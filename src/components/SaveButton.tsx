@@ -1,3 +1,5 @@
+import './SaveButton.css';
+
 interface Props {
     text: string;
     saving: boolean;
@@ -14,7 +16,7 @@ const SaveButton: React.FC<Props> = ({
     savedText
 }) => {
     return (
-        <button type="submit">
+        <button type="submit" className="button-save">
             {saving ? savingText : saved ? savedText : text}
         </button>
     );

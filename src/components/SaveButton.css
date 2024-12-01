@@ -1,0 +1,12 @@
+.button-save {
+    background-color: lightblue;
+    border: 1px solid blue;
+    border-radius: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.button-save:hover {
+    background-color: blue;
+    color: white;
+}

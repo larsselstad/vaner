@@ -1,0 +1,15 @@
+.checkbox-label {
+    background-color: #fff;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+}
+
+.checkbox-label-checked {
+    background-color: green;
+}
+
+.checkbox-emoji {
+    font-size: 4em;
+}

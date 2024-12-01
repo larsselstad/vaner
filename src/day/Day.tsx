@@ -47,22 +47,30 @@ const Day: React.FC<DayProps> = ({ index, day, isToday, save }) => {
     return (
         <li className={className}>
             <h3>{titles[index]}</h3>
-            <p>{formatDate(day.date)}</p>
+            <p className="day-date">{formatDate(day.date)}</p>
             <form onSubmit={onSubmit}>
-                <fieldset>
-                    <legend>Have you done your goals today?</legend>
-                    <EmojiCheckbox
-                        name="no_chokolate"
-                        label="🍫"
-                        checked={noChokolate}
-                        onChange={() => setNoChokolate(!noChokolate)}
-                    />
-                    <EmojiCheckbox
-                        name="stretching"
-                        label="🧘‍♂️"
-                        checked={stretching}
-                        onChange={() => setStretching(!stretching)}
-                    />
+                <fieldset className="day-fieldset">
+                    <legend className="day-legend">
+                        Have you done your goals today?
+                    </legend>
+                    <ul className="day-checkboxes">
+                        <li>
+                            <EmojiCheckbox
+                                name="no_chokolate"
+                                label="🍫"
+                                checked={noChokolate}
+                                onChange={() => setNoChokolate(!noChokolate)}
+                            />
+                        </li>
+                        <li>
+                            <EmojiCheckbox
+                                name="stretching"
+                                label="🧘‍♂️"
+                                checked={stretching}
+                                onChange={() => setStretching(!stretching)}
+                            />
+                        </li>
+                    </ul>
                 </fieldset>
                 <SaveButton
                     text="Save"

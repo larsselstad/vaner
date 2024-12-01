@@ -5,7 +5,6 @@ import outputs from '../amplify_outputs.json';
 import { type Schema } from '../amplify/data/resource';
 import Week from './week/Week';
 import { getNextWeek, getPreviousWeek, getWeekNumber } from './utils/date';
-import NavigationButtons from './components/NavigationButtons';
 import './App.css';
 import Menu from './components/Menu';
 
@@ -42,9 +41,14 @@ export default function App() {
                 <Menu client={client} />
             </header>
             <section>
-                <div>
+                <div id="week-nav">
                     <h2>Week {weekNumber}</h2>
-                    <NavigationButtons goBack={goBack} goForward={goForward} />
+                    <button id="week-back-button" onClick={goBack}>
+                        &lt; Back
+                    </button>
+                    <button id="week-next-button" onClick={goForward}>
+                        Next &gt;
+                    </button>
                 </div>
                 <Week date={date} weekNumber={weekNumber} client={client} />
             </section>

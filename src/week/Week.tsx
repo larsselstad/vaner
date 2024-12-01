@@ -59,21 +59,25 @@ const Week: React.FC<WeekProps> = ({ date, weekNumber, client }) => {
     return (
         <div className="week">
             {loading ? (
-                <p>Loading week {weekNumber}...</p>
+                <p className="week-loading">Loading week {weekNumber}...</p>
             ) : (
                 <>
-                    <ul className="days-list">
-                        {days.map((day, index) => (
-                            <Day
-                                key={index}
-                                index={index}
-                                day={day}
-                                isToday={day.date.getTime() === date.getTime()}
-                                save={saveDay}
-                            />
-                        ))}
-                    </ul>
-                    <ul>
+                    <div className="week-wrapper">
+                        <ul className="days-list">
+                            {days.map((day, index) => (
+                                <Day
+                                    key={index}
+                                    index={index}
+                                    day={day}
+                                    isToday={
+                                        day.date.getTime() === date.getTime()
+                                    }
+                                    save={saveDay}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                    <ul className="week-status">
                         {days.map((day, index) => (
                             <DayStatus day={day} key={index + '-daystatus'} />
                         ))}

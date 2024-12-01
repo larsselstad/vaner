@@ -22,3 +22,24 @@ button {
     font-weight: bold;
     text-align: center;
 }
+
+#week-nav {
+    display: grid;
+    grid-template-areas: 'b h f';
+    align-items: center;
+    gap: 1em;
+}
+
+#week-nav h2 {
+    grid-area: h;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+#week-back-button {
+    grid-area: b;
+}
+
+#week-next-button {
+    grid-area: f;
+}

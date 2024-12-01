@@ -1,3 +1,21 @@
-.week {
-    background-color: aqua;
+.days-list {
+    display: flex;
+    list-style: none;
+}
+
+.week-loading {
+    padding: 1.5em;
+    text-align: center;
+}
+
+.week-wrapper {
+    width: 100vw;
+    overflow: scroll;
+}
+
+.week-status {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    list-style: none;
 }
