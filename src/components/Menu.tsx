@@ -37,8 +37,8 @@ const Menu: React.FC<Props> = ({ client }) => {
                 Menu
             </button>
             <ul className="list">
-                {userprofiles.map(({ email }) => (
-                    <li>{email}</li>
+                {userprofiles.map(({ id, email }) => (
+                    <li key={id}>{email}</li>
                 ))}
                 <li>
                     <button id="menu-signout" onClick={signOut}>

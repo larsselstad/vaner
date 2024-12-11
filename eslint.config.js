@@ -1,28 +1,22 @@
-import js from '@eslint/js';
 import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
+import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import pluginReact from 'eslint-plugin-react';
+import pluginReactRefresh from 'eslint-plugin-react-refresh';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
 
-export default tseslint.config(
-    { ignores: ['dist'] },
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+    { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
+    { ignores: ['amplify/auth/post-confirmation/graphql/*.ts'] },
+    { languageOptions: { globals: globals.browser } },
+    pluginJs.configs.recommended,
+    ...tseslint.configs.recommended,
+    pluginReact.configs.flat.recommended,
+    pluginReactRefresh.configs.recommended,
     {
-        extends: [js.configs.recommended, ...tseslint.configs.recommended],
-        files: ['**/*.{ts,tsx}'],
-        languageOptions: {
-            ecmaVersion: 2020,
-            globals: globals.browser
-        },
-        plugins: {
-            'react-hooks': reactHooks,
-            'react-refresh': reactRefresh
-        },
-        rules: {
-            ...reactHooks.configs.recommended.rules,
-            'react-refresh/only-export-components': [
-                'warn',
-                { allowConstantExport: true }
-            ]
-        }
-    }
-);
+        plugins: { 'react-hooks': pluginReactHooks },
+        rules: { ...pluginReactHooks.configs.recommended.rules }
+    },
+    { settings: { react: { version: 'detect' } } }
+];

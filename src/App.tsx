@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Amplify } from 'aws-amplify';
 import { generateClient, Client } from 'aws-amplify/data';
 import outputs from '../amplify_outputs.json';
@@ -18,7 +18,7 @@ const today = new Date();
 today.setHours(0, 0, 0, 0);
 const currentWeekNumber = getWeekNumber(today);
 
-export default function App() {
+const App: React.FC = () => {
     const [weekNumber, setWeekNumber] = useState<number>(currentWeekNumber);
     const [date, setDate] = useState<Date>(today);
 
@@ -62,4 +62,6 @@ export default function App() {
             </section>
         </main>
     );
-}
+};
+
+export default App;

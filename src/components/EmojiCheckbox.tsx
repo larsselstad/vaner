@@ -1,5 +1,6 @@
-import './EmojiCheckbox.css';
+import React from 'react';
 import classNames from 'classnames';
+import './EmojiCheckbox.css';
 
 interface Props {
     name: string;
