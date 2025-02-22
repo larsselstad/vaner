@@ -1,3 +1,7 @@
+.textalign-center {
+    text-align: center;
+}
+
 .daystatus {
     background-color: var(--color-light-grey);
     border-radius: 50%;
